@@ -1,35 +1,66 @@
 import React, {useState} from "react"
+import './App.css';
+
+
 
 export default function Todo_app(){
-    const [item, setItem] = useState('');
-    const [itemVal, setItemVal] = useState('')
+    const [todo, setTodo] = useState('');
+    const [todoVal, setTodoVal] = useState('')
+    const[todoList, setTodoList] = useState([]);
 
     function handleInput(event){
         const inputVal = event.target.value;
-        setItem(inputVal);
-        setItemVal(inputVal);
+
+        setTodo(inputVal);
+        setTodoVal(inputVal);
        
     }
 
-    function addItem(){
-        console.log(itemVal)
-        
+    function addTodo(e){
+        setTodoList((preVal)=>[...preVal, todoVal]);
+
+        setTodoVal('');
+        setTodo('');           
     }
+
+function AllTodo(props){
+    const newTodo = props.newTodoList
+
+  return newTodo.map((item)=> {
+      return <div className="todo-item">
+                <p>{item} </p>
+                <button className='edit-btn'>E</button>
+                <button className = 'delete-btn'> D</button>
+             </div>
+  }
+  ).reverse()
+
+   
+}
+
+
+
+
+   
    
 
     return(
         <div className="container">
             <h1 className='logo'>Todo App</h1>
             <div className="input-container">
-                <input onChange={handleInput} type="text" placeholder='Add Item' value={item}/>
-                <button onClick={addItem}>ADD</button>
+                <input onChange={handleInput} type="text" placeholder='Add Item' value={todo}/>
+                <button onClick={addTodo}>ADD</button>
             </div>
             <div className="item-display">
-                <p>item </p>
-                <p>item </p>
-                <p>item </p>
-                <p>item </p>
-                <p>item </p>
+                <AllTodo newTodoList={todoList} />
+
+                
+            {/* <div className="todo-item">
+                <p>{item} </p>
+                <button className='edit-btn'>E</button>
+                <button className = 'delete-btn'> D</button>
+            </div> */}
+           
             </div>
         </div>
     )
