@@ -9,6 +9,7 @@ export default function Todo_app(){
     const[todoList, setTodoList] = useState([]);
 
     function handleInput(event){
+        event.preventDefault()
         const inputVal = event.target.value;
 
         setTodo(inputVal);
@@ -17,10 +18,14 @@ export default function Todo_app(){
     }
 
     function addTodo(e){
-        setTodoList((preVal)=>[...preVal, todoVal]);
+        e.preventDefault();
+        if(todoVal !=''){
+           setTodoList((preVal)=>[...preVal, todoVal]);
 
         setTodoVal('');
-        setTodo('');           
+        setTodo('');   
+        }
+                 
     }
 
 function AllTodo(props){
@@ -34,15 +39,7 @@ function AllTodo(props){
              </div>
   }
   ).reverse()
-
-   
 }
-
-
-
-
-   
-   
 
     return(
         <div className="container">
@@ -53,14 +50,6 @@ function AllTodo(props){
             </div>
             <div className="item-display">
                 <AllTodo newTodoList={todoList} />
-
-                
-            {/* <div className="todo-item">
-                <p>{item} </p>
-                <button className='edit-btn'>E</button>
-                <button className = 'delete-btn'> D</button>
-            </div> */}
-           
             </div>
         </div>
     )
